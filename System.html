@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Frenzy Station - كرتي</title>
+  <style>
+    :root {
+      --bg-color: #112D4E;
+      --card-bg: #005A9C;
+      --accent-color: #3F72AF;
+      --text-color: #F9F7F7;
+      --highlight-red: #FF3366;
+      --success-green: #4E9F3D;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    .app-container {
+      background-color: var(--card-bg);
+      width: 100%;
+      max-width: 440px;
+      padding: 28px;
+      border-radius: 20px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
+    }
+
+    .brand-header {
+      text-align: center;
+      margin-bottom: 22px;
+    }
+
+    .brand-header h1 {
+      font-size: 26px;
+      color: var(--text-color);
+      letter-spacing: 1px;
+    }
+
+    .brand-header p {
+      font-size: 13px;
+      color: #DBE2EF;
+      margin-top: 4px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 14px;
+      margin-bottom: 6px;
+      color: #F9F7F7;
+    }
+
+    .form-group input {
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--accent-color);
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-size: 15px;
+      outline: none;
+      transition: border-color 0.2s ease;
+    }
+
+    .form-group input:focus {
+      border-color: #FFFFFF;
+    }
+
+    .btn-submit {
+      width: 100%;
+      padding: 14px;
+      background-color: var(--accent-color);
+      color: #FFFFFF;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background-color 0.2s ease;
+    }
+
+    .btn-submit:hover {
+      background-color: #2b588c;
+    }
+
+    /* قسم توضيح ظهر الكارت في المتصفح */
+    .card-guide {
+      margin-top: 24px;
+      background: rgba(17, 45, 78, 0.7);
+      border-radius: 14px;
+      padding: 14px;
+      border: 1px dashed rgba(255, 255, 255, 0.2);
+    }
+
+    .guide-title {
+      font-size: 13px;
+      color: #DBE2EF;
+      text-align: center;
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .card-mockup {
+      background-color: #FFFFFF;
+      color: #222222;
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 10px;
+      position: relative;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      border: 1px solid #CCCCCC;
+    }
+
+    .card-terms {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+      color: #444444;
+      line-height: 1.3;
+    }
+
+    .card-terms-col {
+      width: 50%;
+    }
+
+    .card-footer-strip {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #F8F9FA;
+      padding: 6px 8px;
+      border-radius: 8px;
+      border: 1px solid #E9ECEF;
+      position: relative;
+    }
+
+    .card-brand {
+      font-weight: 900;
+      font-size: 11px;
+      color: #112D4E;
+    }
+
+    .card-number-box {
+      font-family: monospace;
+      font-weight: bold;
+      font-size: 12px;
+      letter-spacing: 0.5px;
+      color: #111111;
+      padding: 4px 8px;
+      border: 2px solid var(--highlight-red);
+      border-radius: 6px;
+      background-color: rgba(255, 51, 102, 0.08);
+      position: relative;
+      animation: pulse-border 2s infinite;
+    }
+
+    @keyframes pulse-border {
+      0% { box-shadow: 0 0 0 0 rgba(255, 51, 102, 0.4); }
+      70% { box-shadow: 0 0 0 6px rgba(255, 51, 102, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 51, 102, 0); }
+    }
+
+    .arrow-pointer {
+      text-align: center;
+      margin-top: 8px;
+      color: var(--highlight-red);
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+    /* لوحة العرض بعد الدخول */
+    .dashboard-view {
+      display: none;
+    }
+
+    .balance-card {
+      background-color: var(--bg-color);
+      border-radius: 14px;
+      padding: 20px;
+      text-align: center;
+      margin: 18px 0;
+    }
+
+    .balance-title {
+      font-size: 13px;
+      color: #DBE2EF;
+    }
+
+    .balance-value {
+      font-size: 38px;
+      font-weight: bold;
+      color: var(--success-green);
+      margin: 8px 0;
+    }
+
+    .info-list {
+      background: rgba(17, 45, 78, 0.4);
+      border-radius: 10px;
+      padding: 10px 14px;
+    }
+
+    .info-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      font-size: 14px;
+    }
+
+    .info-item:last-child {
+      border-bottom: none;
+    }
+
+    .btn-logout {
+      width: 100%;
+      padding: 12px;
+      background-color: #C70039;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 14px;
+      font-weight: bold;
+      cursor: pointer;
+      margin-top: 16px;
+    }
+
+    .error-text {
+      color: #FF6B6B;
+      font-size: 13px;
+      text-align: center;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-container">
+    
+    <!-- صفحة الدخول -->
+    <div id="loginView">
+      <div class="brand-header">
+        <h1>Frenzy Station</h1>
+        <p>استعلام عن رصيد وحالة الكارت</p>
+      </div>
+
+      <div class="form-group">
+        <label for="inputName">الاسم بالكامل</label>
+        <input type="text" id="inputName" placeholder="أدخل اسمك كما هو مسجل">
+      </div>
+
+      <div class="form-group">
+        <label for="inputCardId">رقم الكارت</label>
+        <input type="number" id="inputCardId" placeholder="مثال: 0488289904403">
+      </div>
+
+      <button class="btn-submit" onclick="login()">عرض الرصيد</button>
+      <div id="errorBox" class="error-text"></div>
+
+      <!-- دليل رقم الكارت المصمم بالبراوسر -->
+      <div class="card-guide">
+        <div class="guide-title">رقم الكارت الموجود في أسفل ظهر الكارد</div>
+        
+        <div class="card-mockup">
+          <div class="card-terms">
+            <div class="card-terms-col">
+              This card is rechargeable and can be used for 6 months.
+            </div>
+            <div class="card-terms-col" style="text-align: left;">
+              هذا الكارت صالح لإعادة الشحن والاستخدام لمدة 6 شهور.
+            </div>
+          </div>
+
+          <div class="card-footer-strip">
+            <div class="card-brand">FRENZY STATION</div>
+            <div class="card-number-box">
+              0488289904*403
+            </div>
+          </div>
+        </div>
+
+        <div class="arrow-pointer">
+          ⬆️ الرقم الموضح داخل المستطيل الأحمر في ظهر الكارت
+        </div>
+      </div>
+    </div>
+
+    <!-- صفحة تفاصيل الكارت -->
+    <div id="dashboardView" class="dashboard-view">
+      <div class="brand-header">
+        <h2 id="userNameText">أهلاً بك</h2>
+        <p id="userCardText">كارت رقم: ---</p>
+      </div>
+
+      <div class="balance-card">
+        <div class="balance-title">الرصيد الحالي المتاح</div>
+        <div class="balance-value" id="balanceText">0 ج.م</div>
+      </div>
+
+      <div class="info-list">
+        <div class="info-item">
+          <span>صلاحية الكارت (6 شهور):</span>
+          <strong id="expiryText">-</strong>
+        </div>
+        <div class="info-item">
+          <span>حالة الحساب:</span>
+          <strong style="color: var(--success-green);" id="statusText">نشط</strong>
+        </div>
+      </div>
+
+      <button class="btn-logout" onclick="logout()">خروج</button>
+    </div>
+
+  </div>
+
+  <script>
+    // رابط الـ API بتاعك من جوجل Apps Script
+    const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwMrahunEm_Kf-qeCcSN3sALLdBcTeL0J0vj6yY2_Lfijw_o7jFqvRakx0oDeh3w5ZSmQ/exec';
+
+    async function login() {
+      const nameInput = document.getElementById('inputName').value.trim();
+      const cardIdInput = document.getElementById('inputCardId').value.trim();
+      const errorBox = document.getElementById('errorBox');
+
+      if (!nameInput || !cardIdInput) {
+        errorBox.innerText = 'يرجى كتابة الاسم ورقم الكارت أولاً';
+        return;
+      }
+
+      errorBox.style.color = '#3F72AF';
+      errorBox.innerText = 'جاري التحقق من قاعدة البيانات...';
+
+      try {
+        const response = await fetch(`${SCRIPT_URL}?cardId=${encodeURIComponent(cardIdInput)}`);
+        const data = await response.json();
+
+        if (data.found) {
+          if (data.name.toString().toLowerCase().includes(nameInput.toLowerCase()) || nameInput.toLowerCase().includes(data.name.toString().toLowerCase())) {
+            errorBox.innerText = '';
+            document.getElementById('loginView').style.display = 'none';
+            document.getElementById('dashboardView').style.display = 'block';
+
+            document.getElementById('userNameText').innerText = `أهلاً بك، ${data.name}`;
+            document.getElementById('userCardText').innerText = `كارت رقم: ${data.cardId}`;
+            document.getElementById('balanceText').innerText = `${data.balance} ج.م`;
+            document.getElementById('expiryText').innerText = data.expiry ? data.expiry.toString().split('T')[0] : 'غير محدد';
+            document.getElementById('statusText').innerText = data.status || 'نشط';
+          } else {
+            errorBox.style.color = '#FF6B6B';
+            errorBox.innerText = 'اسم صاحب الكارت غير مطابق للرقم المدخل';
+          }
+        } else {
+          errorBox.style.color = '#FF6B6B';
+          errorBox.innerText = 'رقم الكارت غير موجود في النظام';
+        }
+      } catch (err) {
+        console.error(err);
+        errorBox.style.color = '#FF6B6B';
+        errorBox.innerText = 'حدث خطأ في الاتصال، حاول مرة أخرى';
+      }
+    }
+
+    function logout() {
+      document.getElementById('loginView').style.display = 'block';
+      document.getElementById('dashboardView').style.display = 'none';
+      document.getElementById('inputName').value = '';
+      document.getElementById('inputCardId').value = '';
+      document.getElementById('errorBox').innerText = '';
+    }
+  </script>
+</body>
+</html>
